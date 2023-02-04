@@ -10,9 +10,14 @@ import android.view.GestureDetector;
 import android.view.MotionEvent;
 import android.view.ScaleGestureDetector;
 import android.view.View;
-import android.widget.ImageView;
+import androidx.appcompat.widget.AppCompatImageView;
 
-public class TouchImageView extends ImageView implements GestureDetector.OnGestureListener, GestureDetector.OnDoubleTapListener {
+/*
+    Directly copied from https://stackoverflow.com/a/54474455
+    Minimally changed
+ */
+
+public class TouchImageView extends AppCompatImageView implements GestureDetector.OnGestureListener, GestureDetector.OnDoubleTapListener {
 
     Matrix matrix;
 
@@ -26,7 +31,7 @@ public class TouchImageView extends ImageView implements GestureDetector.OnGestu
     PointF last = new PointF();
     PointF start = new PointF();
     float minScale = 1f;
-    float maxScale = 3f;
+    float maxScale = 7f;
     float[] m;
 
     int viewWidth, viewHeight;
