@@ -1,2 +1,2 @@
 # cruzhacks23
-Jason, Bill, Navo, Arnav
+Jason, Bill, Navodit, Arnav
