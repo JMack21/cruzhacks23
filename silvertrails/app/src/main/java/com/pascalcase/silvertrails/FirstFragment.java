@@ -2,6 +2,7 @@ package com.pascalcase.silvertrails;
 
 import android.Manifest;
 import android.content.pm.PackageManager;
+import android.location.Location;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -14,6 +15,7 @@ import androidx.core.content.ContextCompat;
 import androidx.fragment.app.Fragment;
 import androidx.navigation.fragment.NavHostFragment;
 
+import com.google.android.gms.location.FusedLocationProviderClient;
 import com.pascalcase.silvertrails.databinding.FragmentFirstBinding;
 
 import java.util.ArrayList;
@@ -68,7 +70,7 @@ public class FirstFragment extends Fragment
             {
                 System.out.println("~~~ D E B U G ~~~: Clicked getCoordsButton");
 
-                binding.coordsTextview.setText("Coords: your mom");
+                mainActivity.gimmeLocation(binding.coordsTextview);
             }
         });
     }

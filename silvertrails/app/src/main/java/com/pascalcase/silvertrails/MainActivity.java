@@ -2,10 +2,17 @@ package com.pascalcase.silvertrails;
 
 import android.Manifest;
 import android.content.pm.PackageManager;
+import android.location.Location;
 import android.os.Bundle;
 
+import com.google.android.gms.location.FusedLocationProviderClient;
+import com.google.android.gms.location.LocationServices;
+import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.android.gms.tasks.SuccessContinuation;
+import com.google.android.gms.tasks.Task;
 import com.google.android.material.snackbar.Snackbar;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.view.View;
@@ -21,6 +28,7 @@ import com.pascalcase.silvertrails.databinding.ActivityMainBinding;
 
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.TextView;
 
 import java.util.Arrays;
 import java.util.Vector;
@@ -33,6 +41,8 @@ public class MainActivity extends AppCompatActivity
 
     public final boolean hasCourseLocationPerm;
     public final boolean hasFineLocationPerm;
+
+    private FusedLocationProviderClient fusedLocationClient;
 
     public MainActivity()
     {
@@ -62,6 +72,8 @@ public class MainActivity extends AppCompatActivity
                 Snackbar.make(view, "Haha weeee", Snackbar.LENGTH_LONG).setAction("Action", null).show();
             }
         });
+
+        fusedLocationClient = LocationServices.getFusedLocationProviderClient(this);
     }
 
     @Override
@@ -120,8 +132,7 @@ public class MainActivity extends AppCompatActivity
                 if (grantResults[0] == PackageManager.PERMISSION_GRANTED)
                 {
                     //granted
-                }
-                else
+                } else
                 {
                     //not granted
                 }
@@ -140,12 +151,54 @@ public class MainActivity extends AppCompatActivity
         String[] permsNeeded;
         {
             Vector<String> permsNeededPre = new Vector<String>();
-            if (!hasCourseLocPerm) { permsNeededPre.add(Manifest.permission.ACCESS_COARSE_LOCATION); }
-            if (!hasFineLocPerm) { permsNeededPre.add(Manifest.permission.ACCESS_FINE_LOCATION); }
+            if (!hasCourseLocPerm)
+            {
+                permsNeededPre.add(Manifest.permission.ACCESS_COARSE_LOCATION);
+            }
+            if (!hasFineLocPerm)
+            {
+                permsNeededPre.add(Manifest.permission.ACCESS_FINE_LOCATION);
+            }
             permsNeeded = new String[permsNeededPre.size()];
             permsNeeded = permsNeededPre.toArray(permsNeeded);
         }
 
         requestForPerms(permsNeeded);
+    }
+
+    ///// GETTING LOCATION /////
+
+    public void gimmeLocation(TextView textViewObject)
+    {
+        textViewObject.setText("GRRRRR");
+
+        if (ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED)
+        {
+            return;
+        }
+        Task<Location> heha = fusedLocationClient.getLastLocation()
+            .addOnSuccessListener(this, new OnSuccessListener<Location>()
+            {
+                @Override
+                public void onSuccess(Location location)
+                {
+                    // Got last known location. In some rare situations this can be null.
+                    if (location != null) { }
+                }
+            });
+
+        heha.onSuccessTask(new SuccessContinuation<Location, Object>()
+           {
+               @NonNull
+               @Override
+               public Task<Object> then(Location location) throws Exception
+               {
+                   textViewObject.setText("Coords: " + location.getLatitude());
+
+                   return null;
+               }
+           }
+
+        );
     }
 }
