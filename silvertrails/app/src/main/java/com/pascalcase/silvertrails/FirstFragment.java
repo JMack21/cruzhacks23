@@ -11,27 +11,33 @@ import androidx.navigation.fragment.NavHostFragment;
 
 import com.pascalcase.silvertrails.databinding.FragmentFirstBinding;
 
-public class FirstFragment extends Fragment {
+public class FirstFragment extends Fragment
+{
 
     private FragmentFirstBinding binding;
 
     @Override
-    public View onCreateView(
+    public View onCreateView
+    (
             LayoutInflater inflater, ViewGroup container,
             Bundle savedInstanceState
-    ) {
+    )
+    {
 
         binding = FragmentFirstBinding.inflate(inflater, container, false);
         return binding.getRoot();
 
     }
 
-    public void onViewCreated(@NonNull View view, Bundle savedInstanceState) {
+    public void onViewCreated(@NonNull View view, Bundle savedInstanceState)
+    {
         super.onViewCreated(view, savedInstanceState);
 
-        binding.buttonFirst.setOnClickListener(new View.OnClickListener() {
+        binding.buttonFirst.setOnClickListener(new View.OnClickListener()
+        {
             @Override
-            public void onClick(View view) {
+            public void onClick(View view)
+            {
                 NavHostFragment.findNavController(FirstFragment.this)
                         .navigate(R.id.action_FirstFragment_to_SecondFragment);
             }
@@ -39,7 +45,8 @@ public class FirstFragment extends Fragment {
     }
 
     @Override
-    public void onDestroyView() {
+    public void onDestroyView()
+    {
         super.onDestroyView();
         binding = null;
     }
