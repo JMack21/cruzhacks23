@@ -1,5 +1,7 @@
 package com.pascalcase.silvertrails;
 
+import android.Manifest;
+import android.content.pm.PackageManager;
 import android.os.Bundle;
 
 import com.google.android.material.snackbar.Snackbar;
@@ -8,6 +10,8 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.view.View;
 
+import androidx.core.app.ActivityCompat;
+import androidx.core.content.ContextCompat;
 import androidx.navigation.NavController;
 import androidx.navigation.Navigation;
 import androidx.navigation.ui.AppBarConfiguration;
@@ -78,7 +82,39 @@ public class MainActivity extends AppCompatActivity
     public boolean onSupportNavigateUp()
     {
         NavController navController = Navigation.findNavController(this, R.id.nav_host_fragment_content_main);
-        return NavigationUI.navigateUp(navController, appBarConfiguration)
-                || super.onSupportNavigateUp();
+        return NavigationUI.navigateUp(navController, appBarConfiguration) || super.onSupportNavigateUp();
+    }
+
+    // Custom method
+    public boolean checkIfAlreadyHavePerm(String perm)
+    {
+        int result = ContextCompat.checkSelfPermission(this, perm);
+        return result == PackageManager.PERMISSION_GRANTED;
+    }
+
+    // Custom method
+    public void requestForPerm(String[] perms)
+    {
+        ActivityCompat.requestPermissions(this, perms, 101);
+    }
+
+    @Override
+    public void onRequestPermissionsResult(int requestCode, String[] permissions, int[] grantResults)
+    {
+        switch (requestCode)
+        {
+            case 101:
+                if (grantResults[0] == PackageManager.PERMISSION_GRANTED)
+                {
+                    //granted
+                }
+                else
+                {
+                    //not granted
+                }
+                break;
+            default:
+                super.onRequestPermissionsResult(requestCode, permissions, grantResults);
+        }
     }
 }
