@@ -16,6 +16,11 @@ import androidx.navigation.fragment.NavHostFragment;
 
 import com.pascalcase.silvertrails.databinding.FragmentFirstBinding;
 
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Stack;
+import java.util.Vector;
+
 public class FirstFragment extends Fragment
 {
     private FragmentFirstBinding binding;
@@ -50,13 +55,20 @@ public class FirstFragment extends Fragment
             @Override
             public void onClick(View view)
             {
-                binding.bungusButton.setText("bro");
+                System.out.println("~~~ D E B U G ~~~: Clicked requestLocButton");
 
-                boolean hasCourseLocPerm = mainActivity.checkIfAlreadyHavePerm(Manifest.permission.ACCESS_COARSE_LOCATION);
-                boolean hasFineLocPerm = mainActivity.checkIfAlreadyHavePerm(Manifest.permission.ACCESS_FINE_LOCATION);
+                mainActivity.requestLocationPermsIfNeeded();
+            }
+        });
 
+        binding.getCoordsButton.setOnClickListener(new View.OnClickListener()
+        {
+            @Override
+            public void onClick(View view)
+            {
+                System.out.println("~~~ D E B U G ~~~: Clicked getCoordsButton");
 
-                System.out.println("~~~ D E B U G ~~~: Clicked thingy");
+                binding.coordsTextview.setText("Coords: your mom");
             }
         });
     }

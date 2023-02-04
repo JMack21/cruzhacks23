@@ -22,11 +22,23 @@ import com.pascalcase.silvertrails.databinding.ActivityMainBinding;
 import android.view.Menu;
 import android.view.MenuItem;
 
+import java.util.Arrays;
+import java.util.Vector;
+
 public class MainActivity extends AppCompatActivity
 {
 
     private AppBarConfiguration appBarConfiguration;
     private ActivityMainBinding binding;
+
+    public final boolean hasCourseLocationPerm;
+    public final boolean hasFineLocationPerm;
+
+    public MainActivity()
+    {
+        this.hasCourseLocationPerm = false;
+        this.hasFineLocationPerm = false;
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState)
@@ -47,8 +59,7 @@ public class MainActivity extends AppCompatActivity
             @Override
             public void onClick(View view)
             {
-                Snackbar.make(view, "Haha weeee", Snackbar.LENGTH_LONG)
-                        .setAction("Action", null).show();
+                Snackbar.make(view, "Haha weeee", Snackbar.LENGTH_LONG).setAction("Action", null).show();
             }
         });
     }
@@ -85,15 +96,17 @@ public class MainActivity extends AppCompatActivity
         return NavigationUI.navigateUp(navController, appBarConfiguration) || super.onSupportNavigateUp();
     }
 
+    ///// REQUESTING PERMISSIONS /////
+
     // Custom method
-    public boolean checkIfAlreadyHavePerm(String perm)
+    private boolean checkIfAlreadyHavePerm(String perm)
     {
         int result = ContextCompat.checkSelfPermission(this, perm);
         return result == PackageManager.PERMISSION_GRANTED;
     }
 
     // Custom method
-    public void requestForPerm(String[] perms)
+    private void requestForPerms(String[] perms)
     {
         ActivityCompat.requestPermissions(this, perms, 101);
     }
@@ -116,5 +129,23 @@ public class MainActivity extends AppCompatActivity
             default:
                 super.onRequestPermissionsResult(requestCode, permissions, grantResults);
         }
+    }
+
+    // Custom method
+    public void requestLocationPermsIfNeeded()
+    {
+        boolean hasCourseLocPerm = checkIfAlreadyHavePerm(Manifest.permission.ACCESS_COARSE_LOCATION);
+        boolean hasFineLocPerm = checkIfAlreadyHavePerm(Manifest.permission.ACCESS_FINE_LOCATION);
+
+        String[] permsNeeded;
+        {
+            Vector<String> permsNeededPre = new Vector<String>();
+            if (!hasCourseLocPerm) { permsNeededPre.add(Manifest.permission.ACCESS_COARSE_LOCATION); }
+            if (!hasFineLocPerm) { permsNeededPre.add(Manifest.permission.ACCESS_FINE_LOCATION); }
+            permsNeeded = new String[permsNeededPre.size()];
+            permsNeeded = permsNeededPre.toArray(permsNeeded);
+        }
+
+        requestForPerms(permsNeeded);
     }
 }
