@@ -5,17 +5,12 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
-import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
-import androidx.navigation.NavController;
-import androidx.navigation.Navigation;
 
 import com.pascalcase.silvertrails.MainActivity;
-import com.pascalcase.silvertrails.R;
-import com.pascalcase.silvertrails.StudySpotPopupFragment;
 import com.pascalcase.silvertrails.databinding.FragmentHomeBinding;
 import com.pascalcase.silvertrails.gamertools.imagescrolling.TouchImageView;
 import com.pascalcase.silvertrails.gamertools.maptools.MapMarker;
@@ -39,6 +34,8 @@ public class HomeFragment extends Fragment
         binding = FragmentHomeBinding.inflate(inflater, container, false);
 
         {
+            binding.popupFrame.setVisibility(View.INVISIBLE);
+
             campusMap = binding.campusPngImage;
             campusMap.receiverOfUpdate = this;
 
@@ -64,8 +61,16 @@ public class HomeFragment extends Fragment
                 @Override
                 public void onClick(View view)
                 {
-                    StudySpotPopupFragment popupFrag = StudySpotPopupFragment.newInstance("", "");
-                    //binding.getRoot().addView(popupFrag.getView());
+                    binding.popupFrame.setVisibility(View.VISIBLE);
+                }
+            });
+
+            binding.popupFrame.setOnClickListener(new View.OnClickListener()
+            {
+                @Override
+                public void onClick(View view)
+                {
+                    binding.popupFrame.setVisibility(View.INVISIBLE);
                 }
             });
         }
