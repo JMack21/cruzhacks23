@@ -1,4 +1,4 @@
-package com.pascalcase.silvertrails.ui.imagescrolling;
+package com.pascalcase.silvertrails.gamertools.imagescrolling;
 
 import android.content.Context;
 import android.graphics.Matrix;
@@ -11,26 +11,32 @@ import android.view.MotionEvent;
 import android.view.ScaleGestureDetector;
 import android.view.View;
 import androidx.appcompat.widget.AppCompatImageView;
+import androidx.fragment.app.Fragment;
 
 import com.pascalcase.silvertrails.ui.Constants;
+import com.pascalcase.silvertrails.ui.home.HomeFragment;
 
 /*
     Directly copied from https://stackoverflow.com/a/54474455
     Minimally changed except for
         - updatePublicZoomedFields()
         - the fields zoomedScale, zoomedXOffset, zoomedYOffset
+        - other stuff probably
  */
 
 public class TouchImageView extends AppCompatImageView implements GestureDetector.OnGestureListener, GestureDetector.OnDoubleTapListener
 {
-    private double zoomedScale;
-    public double getZoomedScale() { return zoomedScale; }
+    private double pubScaleX;
+    private double pubScaleY;
+    private double pubTransX;
+    private double pubTransY;
 
-    private double zoomedXOffset;
-    public double getZoomedXOffset() { return zoomedXOffset; }
+    public double getPubScaleX() { return pubScaleX; }
+    public double getPubScaleY() { return pubScaleY; }
+    public double getPubTransX() { return pubTransX; }
+    public double getPubTransY() { return pubTransY; }
 
-    private double zoomedYOffset;
-    public double getZoomedYOffset() { return zoomedYOffset; }
+    public HomeFragment receiverOfUpdate;
 
     Matrix matrix;
 
@@ -237,15 +243,15 @@ public class TouchImageView extends AppCompatImageView implements GestureDetecto
         float transX = m[Matrix.MTRANS_X];
         float transY = m[Matrix.MTRANS_Y];
 
-        // This line was not in the original stackoverflow file
-        updatePublicZoomedFields(saveScale, transX, transY);
-
         float fixTransX = getFixTrans(transX, viewWidth, origWidth * saveScale);
         float fixTransY = getFixTrans(transY, viewHeight, origHeight
                 * saveScale);
 
         if (fixTransX != 0 || fixTransY != 0)
             matrix.postTranslate(fixTransX, fixTransY);
+
+        // Billy line
+        updatePublicZoomedFields();
     }
 
     float getFixTrans(float trans, float viewSize, float contentSize) {
@@ -325,14 +331,18 @@ public class TouchImageView extends AppCompatImageView implements GestureDetecto
     }
 
     // This was not in the original stackoverflow file
-    private void updatePublicZoomedFields(double zoomedScale, double zoomedXOffset, double zoomedYOffset)
+    private void updatePublicZoomedFields()
     {
-        this.zoomedScale = zoomedScale;
-        this.zoomedXOffset = zoomedXOffset;
-        this.zoomedYOffset = zoomedYOffset;
+        matrix.getValues(m);
+        pubScaleX = m[Matrix.MSCALE_X];
+        pubScaleY = m[Matrix.MSCALE_Y];
+        pubTransX = m[Matrix.MTRANS_X];
+        pubTransY = m[Matrix.MTRANS_Y];
 
-        System.out.println("~~~ D E B U G ~~~: Scale = " + getZoomedScale());
-        System.out.println("~~~ D E B U G ~~~: x = " + getZoomedXOffset());
-        System.out.println("~~~ D E B U G ~~~: y = " + getZoomedYOffset());
+        receiverOfUpdate.onUpdateZoom();
+
+//        System.out.println("~~~ D E B U G ~~~: Scale = " + getZoomedScale());
+//        System.out.println("~~~ D E B U G ~~~: x = " + getZoomedXOffset());
+//        System.out.println("~~~ D E B U G ~~~: y = " + getZoomedYOffset());
     }
 }

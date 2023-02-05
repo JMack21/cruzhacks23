@@ -8,7 +8,7 @@
     android:backgroundTint="#000000"
     tools:context=".ui.home.HomeFragment">
 
-    <com.pascalcase.silvertrails.ui.imagescrolling.TouchImageView
+    <com.pascalcase.silvertrails.gamertools.imagescrolling.TouchImageView
         android:id="@+id/campus_png_image"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -26,5 +26,26 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
+        <TextView
+            android:id="@+id/map_t_x"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="16dp"
+            android:background="#FFFFFF"
+            android:text="TextView"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/map_t_y"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="48dp"
+            android:background="#FFFFFF"
+            android:text="TextView"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
     </androidx.constraintlayout.widget.ConstraintLayout>
 </androidx.constraintlayout.widget.ConstraintLayout>

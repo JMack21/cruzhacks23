@@ -11,11 +11,14 @@ import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
 
 import com.pascalcase.silvertrails.databinding.FragmentHomeBinding;
+import com.pascalcase.silvertrails.gamertools.imagescrolling.TouchImageView;
 
 public class HomeFragment extends Fragment
 {
 
     private FragmentHomeBinding binding;
+
+    private TouchImageView campusMap;
 
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState)
@@ -24,9 +27,30 @@ public class HomeFragment extends Fragment
                 new ViewModelProvider(this).get(HomeViewModel.class);
 
         binding = FragmentHomeBinding.inflate(inflater, container, false);
-        View root = binding.getRoot();
 
-        return root;
+        {
+            campusMap = binding.campusPngImage;
+            campusMap.receiverOfUpdate = this;
+        }
+
+        return binding.getRoot();
+    }
+
+    // Custom method
+    public void onUpdateZoom()
+    {
+//        double scale = campusMap.getZoomedXLeft();
+//        double xOffset = campusMap.getZoomedXLeft();
+//        double yOffset = campusMap.getZoomedXLeft();
+//
+//        double xPosThing = xOffset;
+//        double yPosThing = yOffset;
+//
+//        binding.mapTX.setText("xpos: " + xPosThing);
+//        binding.mapTY.setText("ypos: " + yPosThing);
+
+//        System.out.println("~~~ D E B U G ~~~ xPosThing = " + xPosThing);
+//        System.out.println("~~~ D E B U G ~~~ xPosThing = " + yPosThing);
     }
 
     @Override
