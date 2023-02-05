@@ -22,4 +22,9 @@
         android:name="com.pascalcase.silvertrails.ui.notifications.NotificationsFragment"
         android:label="@string/title_notifications"
         tools:layout="@layout/fragment_notifications" />
+    <fragment
+        android:id="@+id/studySpotPopupFragment"
+        android:name="com.pascalcase.silvertrails.StudySpotPopupFragment"
+        android:label="fragment_study_spot_popup"
+        tools:layout="@layout/fragment_study_spot_popup" />
 </navigation>
