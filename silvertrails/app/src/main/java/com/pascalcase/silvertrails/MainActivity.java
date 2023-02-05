@@ -1,16 +1,21 @@
 package com.pascalcase.silvertrails;
 
+import android.content.pm.PackageManager;
 import android.os.Bundle;
 
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.app.ActivityCompat;
+import androidx.core.content.ContextCompat;
 import androidx.navigation.NavController;
 import androidx.navigation.Navigation;
 import androidx.navigation.ui.AppBarConfiguration;
 import androidx.navigation.ui.NavigationUI;
 
 import com.pascalcase.silvertrails.databinding.ActivityMainBinding;
+
+import java.util.Vector;
 
 public class MainActivity extends AppCompatActivity
 {
@@ -34,6 +39,61 @@ public class MainActivity extends AppCompatActivity
         NavController navController = Navigation.findNavController(this, R.id.nav_host_fragment_activity_main);
         NavigationUI.setupActionBarWithNavController(this, navController, appBarConfiguration);
         NavigationUI.setupWithNavController(binding.navView, navController);
+    }
+
+    ///// REQUESTING PERMISSIONS /////
+
+    private boolean checkIfAlreadyHavePerm(String perm)
+    {
+        int result = ContextCompat.checkSelfPermission(this, perm);
+        return result == PackageManager.PERMISSION_GRANTED;
+    }
+
+    private void requestForPerms(String[] perms)
+    {
+        ActivityCompat.requestPermissions(this, perms, 101);
+    }
+
+    @Override
+    public void onRequestPermissionsResult(int requestCode, String[] permissions, int[] grantResults)
+    {
+        switch (requestCode)
+        {
+            case 101:
+                if (grantResults[0] == PackageManager.PERMISSION_GRANTED)
+                {
+                    //granted
+                } else
+                {
+                    //not granted
+                }
+                break;
+            default:
+                super.onRequestPermissionsResult(requestCode, permissions, grantResults);
+        }
+    }
+
+    public void requestLocationPermsIfNeeded()
+    {
+        boolean hasCourseLocPerm = checkIfAlreadyHavePerm(android.Manifest.permission.ACCESS_COARSE_LOCATION);
+        boolean hasFineLocPerm = checkIfAlreadyHavePerm(android.Manifest.permission.ACCESS_FINE_LOCATION);
+
+        String[] permsNeeded;
+        {
+            Vector<String> permsNeededPre = new Vector<String>();
+            if (!hasCourseLocPerm)
+            {
+                permsNeededPre.add(android.Manifest.permission.ACCESS_COARSE_LOCATION);
+            }
+            if (!hasFineLocPerm)
+            {
+                permsNeededPre.add(android.Manifest.permission.ACCESS_FINE_LOCATION);
+            }
+            permsNeeded = new String[permsNeededPre.size()];
+            permsNeeded = permsNeededPre.toArray(permsNeeded);
+        }
+
+        requestForPerms(permsNeeded);
     }
 
 }
