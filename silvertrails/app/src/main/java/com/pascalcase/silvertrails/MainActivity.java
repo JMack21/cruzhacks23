@@ -1,13 +1,18 @@
 package com.pascalcase.silvertrails;
 
+import android.annotation.SuppressLint;
+import android.location.Location;
 import android.os.Bundle;
-
+import com.google.android.gms.location.FusedLocationProviderClient;
+import com.google.android.gms.location.LocationServices;
+import com.google.android.gms.location.Priority;
+import com.google.android.gms.tasks.CancellationToken;
+import com.google.android.gms.tasks.OnTokenCanceledListener;
+import com.google.android.gms.tasks.Task;
 import com.google.android.material.snackbar.Snackbar;
-
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
-
 import android.view.View;
-
 import androidx.navigation.NavController;
 import androidx.navigation.Navigation;
 import androidx.navigation.ui.AppBarConfiguration;
@@ -24,10 +29,14 @@ public class MainActivity extends AppCompatActivity
     private AppBarConfiguration appBarConfiguration;
     private ActivityMainBinding binding;
 
+    FusedLocationProviderClient locationClient;
+
     @Override
     protected void onCreate(Bundle savedInstanceState)
     {
         super.onCreate(savedInstanceState);
+
+        locationClient = LocationServices.getFusedLocationProviderClient(this);
 
         binding = ActivityMainBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
@@ -43,7 +52,28 @@ public class MainActivity extends AppCompatActivity
             @Override
             public void onClick(View view)
             {
-                Snackbar.make(view, "Haha weeee", Snackbar.LENGTH_LONG)
+
+                @SuppressLint("MissingPermission") Task<Location> location = locationClient.getCurrentLocation(Priority.PRIORITY_BALANCED_POWER_ACCURACY, new CancellationToken()
+                {
+                    @NonNull
+                    @Override
+                    public CancellationToken onCanceledRequested(@NonNull OnTokenCanceledListener onTokenCanceledListener)
+                    {
+                        return null;
+                    }
+
+                    @Override
+                    public boolean isCancellationRequested()
+                    {
+                        return false;
+                    }
+                });
+
+                while(!location.isComplete()){
+
+                }
+                Location currentLocation = location.getResult();
+                Snackbar.make(view, currentLocation.toString(), Snackbar.LENGTH_LONG)
                         .setAction("Action", null).show();
             }
         });
