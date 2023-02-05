@@ -6,6 +6,10 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.pascalcase.silvertrails.databinding.FragmentHomeBinding;
+import com.pascalcase.silvertrails.databinding.FragmentNotificationsBinding;
+import com.pascalcase.silvertrails.databinding.FragmentStudySpotPopupBinding;
+
 /**
  * A simple {@link Fragment} subclass.
  * Use the {@link StudySpotPopupFragment#newInstance} factory method to
@@ -22,6 +26,8 @@ public class StudySpotPopupFragment extends Fragment {
     // TODO: Rename and change types of parameters
     private String mParam1;
     private String mParam2;
+
+    public FragmentStudySpotPopupBinding binding;
 
     /**
      * Use this factory method to create a new instance of
@@ -57,6 +63,9 @@ public class StudySpotPopupFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
+
+        binding = FragmentStudySpotPopupBinding.inflate(inflater, container, false);
+
         // Inflate the layout for this fragment
         return inflater.inflate(R.layout.fragment_study_spot_popup, container, false);
     }

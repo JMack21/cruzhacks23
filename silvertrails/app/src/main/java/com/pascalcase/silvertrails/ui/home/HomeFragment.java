@@ -10,8 +10,12 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
+import androidx.navigation.NavController;
+import androidx.navigation.Navigation;
 
 import com.pascalcase.silvertrails.MainActivity;
+import com.pascalcase.silvertrails.R;
+import com.pascalcase.silvertrails.StudySpotPopupFragment;
 import com.pascalcase.silvertrails.databinding.FragmentHomeBinding;
 import com.pascalcase.silvertrails.gamertools.imagescrolling.TouchImageView;
 import com.pascalcase.silvertrails.gamertools.maptools.MapMarker;
@@ -41,12 +45,12 @@ public class HomeFragment extends Fragment
             mapMarkerManager = new MapMarkerManager();
 
             Button textMarker0 = new Button(getContext());
-            textMarker0.setText("Study Spot");
+            textMarker0.setText("Bathroom");
             binding.mapMarkersLayout.addView(textMarker0);
             mapMarkerManager.addMarker(new MapMarker(textMarker0, 300f, 300f));
 
             Button textMarker1 = new Button(getContext());
-            textMarker1.setText("Study Spot");
+            textMarker1.setText("Recycling Area");
             binding.mapMarkersLayout.addView(textMarker1);
             mapMarkerManager.addMarker(new MapMarker(textMarker1, 1100f, 400f));
 
@@ -54,6 +58,16 @@ public class HomeFragment extends Fragment
             textMarker2.setText("Study Spot");
             binding.mapMarkersLayout.addView(textMarker2);
             mapMarkerManager.addMarker(new MapMarker(textMarker2, 700f, 900f));
+
+            textMarker2.setOnClickListener(new View.OnClickListener()
+            {
+                @Override
+                public void onClick(View view)
+                {
+                    StudySpotPopupFragment popupFrag = StudySpotPopupFragment.newInstance("", "");
+                    //binding.getRoot().addView(popupFrag.getView());
+                }
+            });
         }
 
         mainActivity.requestLocationPermsIfNeeded();
