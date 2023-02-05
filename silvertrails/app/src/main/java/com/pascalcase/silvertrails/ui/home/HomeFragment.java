@@ -39,11 +39,21 @@ public class HomeFragment extends Fragment
             campusMap.receiverOfUpdate = this;
 
             mapMarkerManager = new MapMarkerManager();
-            mapMarkerManager.addMarker(new MapMarker(binding.moveMe, 70f, 0f));
 
-            Button chunga = new Button(getContext());
-            binding.mapMarkersLayout.addView(chunga);
-            mapMarkerManager.addMarker(new MapMarker(chunga, 300f, 300f));
+            Button textMarker0 = new Button(getContext());
+            textMarker0.setText("Study Spot");
+            binding.mapMarkersLayout.addView(textMarker0);
+            mapMarkerManager.addMarker(new MapMarker(textMarker0, 300f, 300f));
+
+            Button textMarker1 = new Button(getContext());
+            textMarker1.setText("Study Spot");
+            binding.mapMarkersLayout.addView(textMarker1);
+            mapMarkerManager.addMarker(new MapMarker(textMarker1, 1100f, 400f));
+
+            Button textMarker2 = new Button(getContext());
+            textMarker2.setText("Study Spot");
+            binding.mapMarkersLayout.addView(textMarker2);
+            mapMarkerManager.addMarker(new MapMarker(textMarker2, 700f, 900f));
         }
 
         mainActivity.requestLocationPermsIfNeeded();
