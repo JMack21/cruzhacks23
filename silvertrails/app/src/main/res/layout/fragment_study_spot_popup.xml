@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
@@ -7,9 +8,47 @@
     tools:context=".StudySpotPopupFragment">
 
     <!-- TODO: Update blank fragment layout -->
-    <TextView
+    <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:text="@string/hello_blank_fragment" />
+        android:layout_height="match_parent">
+
+        <ImageView
+            android:id="@+id/imageView"
+            android:layout_width="376dp"
+            android:layout_height="374dp"
+            android:layout_marginStart="17dp"
+            android:layout_marginTop="83dp"
+            android:src="@drawable/_021_05_31"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/textView"
+            android:layout_width="378dp"
+            android:layout_height="80dp"
+            android:layout_marginStart="17dp"
+            android:layout_marginTop="418dp"
+            android:gravity="center"
+            android:text="Stevenson Coffee House is one of many cafes on campus that accepts SlugPoints, and also acts as a great study spot. It has tables for group study, or bar stools for individuals. Students can expect to find drinks, snacks, and meals available for purchase.  "
+            android:textColor="#EDE9E9"
+            android:textColorHighlight="#5E100E0E"
+            android:textStyle="bold|italic"
+            android:typeface="sans"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/textView2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="95dp"
+            android:layout_marginTop="507dp"
+            android:text="Hours: Monday — Friday: 9am-5pm "
+            android:textColor="#EDE7E7"
+            android:textColorHighlight="#36333131"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
 
 </FrameLayout>
