@@ -11,6 +11,7 @@ import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
 
+import com.pascalcase.silvertrails.MainActivity;
 import com.pascalcase.silvertrails.databinding.FragmentHomeBinding;
 import com.pascalcase.silvertrails.gamertools.imagescrolling.TouchImageView;
 import com.pascalcase.silvertrails.gamertools.maptools.MapMarker;
@@ -19,18 +20,18 @@ import com.pascalcase.silvertrails.gamertools.maptools.MapMarkerManager;
 public class HomeFragment extends Fragment
 {
 
+    private MainActivity mainActivity;
     private FragmentHomeBinding binding;
 
     private TouchImageView campusMap;
 
     private MapMarkerManager mapMarkerManager;
 
-    public View onCreateView(@NonNull LayoutInflater inflater,
-                             ViewGroup container, Bundle savedInstanceState)
+    public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState)
     {
-        HomeViewModel homeViewModel =
-                new ViewModelProvider(this).get(HomeViewModel.class);
+        HomeViewModel homeViewModel = new ViewModelProvider(this).get(HomeViewModel.class);
 
+        mainActivity = (MainActivity) getActivity();
         binding = FragmentHomeBinding.inflate(inflater, container, false);
 
         {
@@ -44,6 +45,8 @@ public class HomeFragment extends Fragment
             binding.mapMarkersLayout.addView(chunga);
             mapMarkerManager.addMarker(new MapMarker(chunga, 300f, 300f));
         }
+
+        mainActivity.requestLocationPermsIfNeeded();
 
         return binding.getRoot();
     }

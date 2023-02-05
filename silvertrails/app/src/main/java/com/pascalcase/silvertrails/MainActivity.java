@@ -78,22 +78,25 @@ public class MainActivity extends AppCompatActivity
         boolean hasCourseLocPerm = checkIfAlreadyHavePerm(android.Manifest.permission.ACCESS_COARSE_LOCATION);
         boolean hasFineLocPerm = checkIfAlreadyHavePerm(android.Manifest.permission.ACCESS_FINE_LOCATION);
 
-        String[] permsNeeded;
+        if (!hasCourseLocPerm || !hasFineLocPerm)
         {
-            Vector<String> permsNeededPre = new Vector<String>();
-            if (!hasCourseLocPerm)
+            String[] permsNeeded;
             {
-                permsNeededPre.add(android.Manifest.permission.ACCESS_COARSE_LOCATION);
+                Vector<String> permsNeededPre = new Vector<String>();
+                if (!hasCourseLocPerm)
+                {
+                    permsNeededPre.add(android.Manifest.permission.ACCESS_COARSE_LOCATION);
+                }
+                if (!hasFineLocPerm)
+                {
+                    permsNeededPre.add(android.Manifest.permission.ACCESS_FINE_LOCATION);
+                }
+                permsNeeded = new String[permsNeededPre.size()];
+                permsNeeded = permsNeededPre.toArray(permsNeeded);
             }
-            if (!hasFineLocPerm)
-            {
-                permsNeededPre.add(android.Manifest.permission.ACCESS_FINE_LOCATION);
-            }
-            permsNeeded = new String[permsNeededPre.size()];
-            permsNeeded = permsNeededPre.toArray(permsNeeded);
-        }
 
-        requestForPerms(permsNeeded);
+            requestForPerms(permsNeeded);
+        }
     }
 
 }
