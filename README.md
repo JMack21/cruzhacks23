@@ -12,6 +12,8 @@
                                                      
 ```
 
+*This project is built in Android Studio to run on Android 11*
+
 ## Developers
 * [Jason Mack](https://github.com/JMack21)
 * [Bill Mularski](https://github.com/fjordimm) 
