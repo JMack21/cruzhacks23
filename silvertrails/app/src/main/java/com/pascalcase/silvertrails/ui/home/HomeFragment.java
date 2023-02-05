@@ -4,6 +4,7 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -39,18 +40,9 @@ public class HomeFragment extends Fragment
     // Custom method
     public void onUpdateZoom()
     {
-//        double scale = campusMap.getZoomedXLeft();
-//        double xOffset = campusMap.getZoomedXLeft();
-//        double yOffset = campusMap.getZoomedXLeft();
-//
-//        double xPosThing = xOffset;
-//        double yPosThing = yOffset;
-//
-//        binding.mapTX.setText("xpos: " + xPosThing);
-//        binding.mapTY.setText("ypos: " + yPosThing);
-
-//        System.out.println("~~~ D E B U G ~~~ xPosThing = " + xPosThing);
-//        System.out.println("~~~ D E B U G ~~~ xPosThing = " + yPosThing);
+        Button moveMe = binding.moveMe;
+        moveMe.setX(campusMap.getPubTransX());
+        moveMe.setY(campusMap.getPubTransY());
     }
 
     @Override

@@ -26,15 +26,15 @@ import com.pascalcase.silvertrails.ui.home.HomeFragment;
 
 public class TouchImageView extends AppCompatImageView implements GestureDetector.OnGestureListener, GestureDetector.OnDoubleTapListener
 {
-    private double pubScaleX;
-    private double pubScaleY;
-    private double pubTransX;
-    private double pubTransY;
+    private float pubScaleX;
+    private float pubScaleY;
+    private float pubTransX;
+    private float pubTransY;
 
-    public double getPubScaleX() { return pubScaleX; }
-    public double getPubScaleY() { return pubScaleY; }
-    public double getPubTransX() { return pubTransX; }
-    public double getPubTransY() { return pubTransY; }
+    public float getPubScaleX() { return pubScaleX; }
+    public float getPubScaleY() { return pubScaleY; }
+    public float getPubTransX() { return pubTransX; }
+    public float getPubTransY() { return pubTransY; }
 
     public HomeFragment receiverOfUpdate;
 
@@ -132,6 +132,10 @@ public class TouchImageView extends AppCompatImageView implements GestureDetecto
 
                 setImageMatrix(matrix);
                 invalidate();
+
+                // Billy line
+                updatePublicZoomedFields();
+
                 return true; // indicate event was handled
             }
 
@@ -249,9 +253,6 @@ public class TouchImageView extends AppCompatImageView implements GestureDetecto
 
         if (fixTransX != 0 || fixTransY != 0)
             matrix.postTranslate(fixTransX, fixTransY);
-
-        // Billy line
-        updatePublicZoomedFields();
     }
 
     float getFixTrans(float trans, float viewSize, float contentSize) {
