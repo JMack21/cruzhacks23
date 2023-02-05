@@ -11,9 +11,8 @@ import android.view.MotionEvent;
 import android.view.ScaleGestureDetector;
 import android.view.View;
 import androidx.appcompat.widget.AppCompatImageView;
-import androidx.fragment.app.Fragment;
 
-import com.pascalcase.silvertrails.ui.Constants;
+import com.pascalcase.silvertrails.gamertools.Constants;
 import com.pascalcase.silvertrails.ui.home.HomeFragment;
 
 /*

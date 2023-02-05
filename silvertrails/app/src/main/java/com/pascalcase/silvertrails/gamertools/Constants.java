@@ -1,4 +1,4 @@
-package com.pascalcase.silvertrails.ui;
+package com.pascalcase.silvertrails.gamertools;
 
 import android.view.View;
 import android.widget.Button;
