@@ -12,6 +12,8 @@ import android.view.ScaleGestureDetector;
 import android.view.View;
 import androidx.appcompat.widget.AppCompatImageView;
 
+import com.pascalcase.silvertrails.ui.Constants;
+
 /*
     Directly copied from https://stackoverflow.com/a/54474455
     Minimally changed
@@ -31,7 +33,7 @@ public class TouchImageView extends AppCompatImageView implements GestureDetecto
     PointF last = new PointF();
     PointF start = new PointF();
     float minScale = 1f;
-    float maxScale = 7f;
+    float maxScale = Constants.MAX_MAP_ZOOM;
     float[] m;
 
     int viewWidth, viewHeight;
