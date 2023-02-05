@@ -16,10 +16,21 @@ import com.pascalcase.silvertrails.ui.Constants;
 
 /*
     Directly copied from https://stackoverflow.com/a/54474455
-    Minimally changed
+    Minimally changed except for
+        - updatePublicZoomedFields()
+        - the fields zoomedScale, zoomedXOffset, zoomedYOffset
  */
 
-public class TouchImageView extends AppCompatImageView implements GestureDetector.OnGestureListener, GestureDetector.OnDoubleTapListener {
+public class TouchImageView extends AppCompatImageView implements GestureDetector.OnGestureListener, GestureDetector.OnDoubleTapListener
+{
+    private double zoomedScale;
+    public double getZoomedScale() { return zoomedScale; }
+
+    private double zoomedXOffset;
+    public double getZoomedXOffset() { return zoomedXOffset; }
+
+    private double zoomedYOffset;
+    public double getZoomedYOffset() { return zoomedYOffset; }
 
     Matrix matrix;
 
@@ -226,6 +237,9 @@ public class TouchImageView extends AppCompatImageView implements GestureDetecto
         float transX = m[Matrix.MTRANS_X];
         float transY = m[Matrix.MTRANS_Y];
 
+        // This line was not in the original stackoverflow file
+        updatePublicZoomedFields(saveScale, transX, transY);
+
         float fixTransX = getFixTrans(transX, viewWidth, origWidth * saveScale);
         float fixTransY = getFixTrans(transY, viewHeight, origHeight
                 * saveScale);
@@ -308,5 +322,17 @@ public class TouchImageView extends AppCompatImageView implements GestureDetecto
             setImageMatrix(matrix);
         }
         fixTrans();
+    }
+
+    // This was not in the original stackoverflow file
+    private void updatePublicZoomedFields(double zoomedScale, double zoomedXOffset, double zoomedYOffset)
+    {
+        this.zoomedScale = zoomedScale;
+        this.zoomedXOffset = zoomedXOffset;
+        this.zoomedYOffset = zoomedYOffset;
+
+        System.out.println("~~~ D E B U G ~~~: Scale = " + getZoomedScale());
+        System.out.println("~~~ D E B U G ~~~: x = " + getZoomedXOffset());
+        System.out.println("~~~ D E B U G ~~~: y = " + getZoomedYOffset());
     }
 }
