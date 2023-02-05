@@ -13,12 +13,17 @@ import androidx.lifecycle.ViewModelProvider;
 
 import com.pascalcase.silvertrails.databinding.FragmentHomeBinding;
 import com.pascalcase.silvertrails.gamertools.imagescrolling.TouchImageView;
+import com.pascalcase.silvertrails.gamertools.maptools.MapMarker;
+import com.pascalcase.silvertrails.gamertools.maptools.MapMarkerManager;
 
 public class HomeFragment extends Fragment
 {
 
     private FragmentHomeBinding binding;
+
     private TouchImageView campusMap;
+
+    private MapMarkerManager mapMarkerManager;
 
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState)
@@ -31,6 +36,13 @@ public class HomeFragment extends Fragment
         {
             campusMap = binding.campusPngImage;
             campusMap.receiverOfUpdate = this;
+
+            mapMarkerManager = new MapMarkerManager();
+            mapMarkerManager.addMarker(new MapMarker(binding.moveMe, 70f, 0f));
+
+            Button chunga = new Button(getContext());
+            binding.mapMarkersLayout.addView(chunga);
+            mapMarkerManager.addMarker(new MapMarker(chunga, 300f, 300f));
         }
 
         return binding.getRoot();
@@ -39,9 +51,12 @@ public class HomeFragment extends Fragment
     // Custom method
     public void onUpdateZoom()
     {
-        Button moveMe = binding.moveMe;
-        moveMe.setX(campusMap.getPubTransX());
-        moveMe.setY(campusMap.getPubTransY());
+        float transX = campusMap.getPubTransX();
+        float transY = campusMap.getPubTransY();
+        float scaleX = campusMap.getPubScaleX();
+        float scaleY = campusMap.getPubScaleY();
+
+        mapMarkerManager.updateMarkerPositions(transX, transY, scaleX, scaleY);
     }
 
     @Override

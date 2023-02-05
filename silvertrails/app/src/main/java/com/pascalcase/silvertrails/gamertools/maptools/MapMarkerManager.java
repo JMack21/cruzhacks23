@@ -17,12 +17,12 @@ public class MapMarkerManager
         markers.add(marker);
     }
 
-    public void updateMarkerPositions(float x, float y)
+    public void updateMarkerPositions(float transX, float transY, float scaleX, float scaleY)
     {
         for (MapMarker marker : markers)
         {
-            marker.view.setX(x);
-            marker.view.setY(y);
+            marker.view.setX(transX + marker.offsetX * scaleX);
+            marker.view.setY(transY + marker.offsetY * scaleY);
         }
     }
 }
