@@ -132,10 +132,6 @@ public class TouchImageView extends AppCompatImageView implements GestureDetecto
 
                 setImageMatrix(matrix);
                 invalidate();
-
-                // Billy line
-                updatePublicZoomedFields();
-
                 return true; // indicate event was handled
             }
 
@@ -253,6 +249,8 @@ public class TouchImageView extends AppCompatImageView implements GestureDetecto
 
         if (fixTransX != 0 || fixTransY != 0)
             matrix.postTranslate(fixTransX, fixTransY);
+
+        updatePublicZoomedFields();
     }
 
     float getFixTrans(float trans, float viewSize, float contentSize) {
@@ -341,9 +339,5 @@ public class TouchImageView extends AppCompatImageView implements GestureDetecto
         pubTransY = m[Matrix.MTRANS_Y];
 
         receiverOfUpdate.onUpdateZoom();
-
-//        System.out.println("~~~ D E B U G ~~~: Scale = " + getZoomedScale());
-//        System.out.println("~~~ D E B U G ~~~: x = " + getZoomedXOffset());
-//        System.out.println("~~~ D E B U G ~~~: y = " + getZoomedYOffset());
     }
 }

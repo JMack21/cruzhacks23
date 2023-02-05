@@ -18,7 +18,6 @@ public class HomeFragment extends Fragment
 {
 
     private FragmentHomeBinding binding;
-
     private TouchImageView campusMap;
 
     public View onCreateView(@NonNull LayoutInflater inflater,
