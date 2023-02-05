@@ -1,5 +1,6 @@
 package com.pascalcase.silvertrails;
 
+import android.location.Location;
 import android.os.Bundle;
 
 import com.google.android.material.snackbar.Snackbar;
@@ -29,6 +30,8 @@ public class MainActivity extends AppCompatActivity
     {
         super.onCreate(savedInstanceState);
 
+        LocationRequester locationRequester = new LocationRequester();
+
         binding = ActivityMainBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
 
@@ -43,7 +46,12 @@ public class MainActivity extends AppCompatActivity
             @Override
             public void onClick(View view)
             {
-                Snackbar.make(view, "Haha weeee", Snackbar.LENGTH_LONG)
+
+                double[] coords = locationRequester.requestLocation();
+                double lat = coords[0];
+                double lon = coords[1];
+                String printCoords = "Latitude: " + String.valueOf(lat) + "\nLongitude: " + String.valueOf(lon);
+                Snackbar.make(view, printCoords, Snackbar.LENGTH_LONG)
                         .setAction("Action", null).show();
             }
         });
